@@ -1,324 +1,325 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<title>Deveam Support</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Поддержка</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+  <style>
     body {
-        margin: 0;
-        font-family: Inter, sans-serif;
-        background: #0e0f11;
-        color: #fff;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100%;
+    }
+    html { height: 100%; }
+    * { box-sizing: border-box; }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    h1 { font-size: 32px; margin: 0 0 8px 0; color: #fff; }
+    .subtitle { color: #888; margin-bottom: 30px; font-size: 14px; }
+
+    .form-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 30px;
     }
 
-    /* ==== HEADER ==== */
-    .header {
-        font-size: 24px;
-        font-weight: 700;
-        text-align: center;
-        padding: 20px;
-        background: rgba(255,255,255,0.03);
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-        backdrop-filter: blur(10px);
+    .form-card h2 { font-size: 18px; margin: 0 0 20px 0; color: #fff; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 12px;
+      align-items: end;
     }
 
-    /* ==== VIEWS ==== */
-    .view {
-        display: none;
-        padding: 20px;
-        animation: fade .25s ease;
+    .form-group { display: flex; flex-direction: column; }
+
+    .form-group label { font-size: 13px; color: #999; margin-bottom: 6px; }
+
+    .form-group input,
+    .form-group textarea {
+      background: #0f0f0f;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
     }
 
-    @keyframes fade {
-        from {opacity: 0;}
-        to {opacity: 1;}
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #6366f1;
     }
 
-    /* ==== BOTTOM NAV ==== */
-    .tabs {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: #0c0d0f;
-        display: flex;
-        border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .tab {
-        flex: 1;
-        text-align: center;
-        padding: 13px 0;
-        color: #888;
-        font-size: 14px;
-        cursor: pointer;
-    }
-
-    .tab.active {
-        color: #3ea6ff;
-        font-weight: 600;
-    }
-
-    /* ==== CARDS ==== */
-    .card {
-        background: rgba(255,255,255,0.05);
-        padding: 16px;
-        margin-bottom: 14px;
-        border-radius: 16px;
-        border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    textarea {
-        width: 100%;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 14px;
-        padding: 12px;
-        color: #fff;
-        resize: none;
-        font-size: 15px;
-    }
+    .form-group textarea { min-height: 44px; resize: vertical; }
 
     .btn {
-        width: 100%;
-        margin-top: 12px;
-        padding: 14px;
-        background: linear-gradient(135deg, #e85287, #c53361);
-        border-radius: 12px;
-        border: none;
-        color: #fff;
-        font-size: 17px;
-        font-weight: 700;
-        cursor: pointer;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
     }
+
+    .btn:hover:not(:disabled) { background: #4e51dd; }
+
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+    .btn-secondary { background: #2a2a2a; }
+    .btn-secondary:hover { background: #333; }
+
+    .tickets-section h2 { margin-bottom: 16px; }
 
     .ticket {
-        background: rgba(255,255,255,0.07);
-        border: 1px solid rgba(255,255,255,0.12);
-        padding: 14px;
-        border-radius: 14px;
-        margin-bottom: 10px;
-        cursor: pointer;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 12px;
     }
 
-    .status {
-        font-size: 13px;
-        margin-top: 6px;
-        opacity: 0.8;
+    .ticket-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
     }
 
-    .open{color:#3ea6ff;}
-    .pending{color:#ffcd4a;}
-    .closed{color:#6aff6a;}
+    .ticket-info h3 { margin: 0; }
 
-    /* Ticket page */
-    .ticket-view-text {
-        font-size: 16px;
-        margin-bottom: 10px;
+    .ticket-question {
+      color: #ccc;
+      margin-bottom: 12px;
     }
 
-    .admin-btn {
-        padding: 8px 12px;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 10px;
-        display: inline-block;
-        margin-right: 6px;
-        cursor: pointer;
+    .status-badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
     }
 
-</style>
+    .status-new { background: #3b82f6; }
+    .status-progress { background: #f59e0b; color: #000; }
+    .status-resolved { background: #10b981; color: #000; }
+
+    .ticket-response {
+      background: #0f0f0f;
+      border-left: 3px solid #6366f1;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .response-form textarea { min-height: 80px; }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #10b981;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .toast.show { display: block; }
+
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .ticket-header { flex-direction: column; }
+    }
+  </style>
+
 </head>
-
 <body>
 
-<div class="header" id="headerTitle">Поддержка</div>
+<div class="container">
 
-<!-- ==================== VIEW 1 — SUPPORT ==================== -->
-<div class="view" id="view-support" style="display:block;">
-    <div class="card">
-        <textarea id="supportText" rows="3" placeholder="Введите ваш вопрос..."></textarea>
-        <button class="btn" onclick="sendTicket()">Отправить</button>
-    </div>
+  <h1>Поддержка</h1>
+  <div class="subtitle">Задайте вопрос и отслеживайте статус</div>
+
+  <!-- FORM -->
+  <div class="form-card">
+    <h2>Задать вопрос</h2>
+    <form id="ticket-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Ваше имя</label>
+          <input type="text" id="name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Вопрос</label>
+          <textarea id="question" required></textarea>
+        </div>
+
+        <button class="btn" type="submit">Отправить</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- TICKETS LIST -->
+  <div class="tickets-section">
+    <h2>Тикеты (<span id="ticket-count">0</span>)</h2>
+    <div id="tickets-list"></div>
+  </div>
+
 </div>
 
-<!-- ==================== VIEW 2 — MY TICKETS ==================== -->
-<div class="view" id="view-my">
-    <div id="myTickets"></div>
-</div>
-
-<!-- ==================== VIEW 3 — ADMIN PANEL ==================== -->
-<div class="view" id="view-admin">
-    <h3>Админ-панель</h3>
-    <div id="adminTickets"></div>
-</div>
-
-<!-- ==================== VIEW 4 — PROFILE ==================== -->
-<div class="view" id="view-profile">
-    <div class="card">
-        <h2 id="profileName"></h2>
-        <div id="profileUsername"></div>
-        <div style="opacity:.7;margin-top:5px;" id="profileId"></div>
-    </div>
-</div>
-
-<!-- ==================== BOTTOM NAV ==================== -->
-<div class="tabs">
-    <div class="tab active" onclick="openTab('support', this)">Поддержка</div>
-    <div class="tab" onclick="openTab('my', this)">Тикеты</div>
-    <div class="tab" id="tabAdmin" style="display:none;" onclick="openTab('admin', this)">Админ</div>
-    <div class="tab" onclick="openTab('profile', this)">Профиль</div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-/* ====================== INIT ====================== */
 
-let tg = window.Telegram.WebApp;
+<script>
+const tg = window.Telegram.WebApp;
 tg.expand();
 
 const API = "https://gimmicky-seamlessly-reinaldo.ngrok-free.dev";
 
-let user = tg.initDataUnsafe.user;
-let ADMIN = 8339987136;
-let isAdmin = user.id === ADMIN;
+const ADMIN = 8339987136;
+const user = tg.initDataUnsafe.user;
+const isAdmin = (user.id === ADMIN);
 
-document.getElementById("profileName").innerText = user.first_name;
-document.getElementById("profileUsername").innerText = user.username ? "@" + user.username : "Без username";
-document.getElementById("profileId").innerText = "ID: " + user.id;
+const ticketsList = document.getElementById("tickets-list");
 
-if (isAdmin) {
-    document.getElementById("tabAdmin").style.display = "block";
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3000);
 }
 
-/* ====================== TABS ====================== */
-function openTab(name, el) {
-    document.querySelectorAll(".view").forEach(v => v.style.display = "none");
-    document.getElementById("view-" + name).style.display = "block";
+async function loadTickets() {
+  const req = await fetch(`${API}/tickets?user_id=${user.id}`);
+  const data = await req.json();
 
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    el.classList.add("active");
+  document.getElementById("ticket-count").textContent = data.length;
 
-    const titles = {
-        support: "Поддержка",
-        my: "Мои тикеты",
-        admin: "Админ-панель",
-        profile: "Профиль"
-    };
-    document.getElementById("headerTitle").innerText = titles[name];
-}
+  ticketsList.innerHTML = "";
 
-/* ====================== SEND TICKET ====================== */
-function sendTicket() {
-    let text = document.getElementById("supportText").value.trim();
-    if (!text) return tg.showAlert("Введите текст!");
+  data.forEach(ticket => {
+    const statusClass =
+      ticket.status === "resolved"
+        ? "status-resolved"
+        : ticket.status === "progress"
+        ? "status-progress"
+        : "status-new";
 
-    fetch(API + "/new_ticket", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({
-            user_id: user.id,
-            username: user.username || "",
-            text: text
-        })
-    });
+    const statusText =
+      ticket.status === "resolved"
+        ? "Решён"
+        : ticket.status === "progress"
+        ? "В работе"
+        : "Новый";
 
-    document.getElementById("supportText").value = "";
-    tg.showPopup({title:"✅ Отправлено", message:"Тикет создан"});
-}
-
-/* ====================== LOAD TICKETS ====================== */
-function loadMyTickets() {
-    fetch(API + "/tickets?user_id=" + user.id)
-        .then(r => r.json())
-        .then(list => {
-            let box = document.getElementById("myTickets");
-            box.innerHTML = "";
-
-            list.forEach(t => {
-                let d = document.createElement("div");
-                d.className = "ticket";
-                d.onclick = () => openTicket(t);
-                d.innerHTML = `
-                    <div>${t.text}</div>
-                    <div class="status ${t.status}">
-                        ${t.status=="open"?"🔵 Открыт":t.status=="pending"?"🟡 На рассмотрении":"✅ Закрыт"}
-                    </div>
-                `;
-                box.appendChild(d);
-            });
-        });
-}
-
-/* ====================== ADMIN TICKETS ====================== */
-function loadAdminTickets() {
-    if (!isAdmin) return;
-
-    fetch(API + "/tickets?user_id=" + ADMIN)
-        .then(r => r.json())
-        .then(list => {
-            let box = document.getElementById("adminTickets");
-            box.innerHTML = "";
-
-            list.forEach(t => {
-                let d = document.createElement("div");
-                d.className = "ticket";
-                d.onclick = () => openTicket(t);
-                d.innerHTML = `
-                    <b>@${t.username}</b><br>
-                    ${t.text}
-                    <div class="status ${t.status}">
-                        ${t.status=="open"?"🔵 Открыт":t.status=="pending"?"🟡 На рассмотрении":"✅ Закрыт"}
-                    </div>
-                `;
-                box.appendChild(d);
-            });
-        });
-}
-
-/* ====================== OPEN TICKET PAGE ====================== */
-function openTicket(t) {
     let html = `
-        <div class="card">
-            <div class="ticket-view-text">${t.text}</div>
-            <div class="status ${t.status}">
-                ${t.status=="open"?"🔵 Открыт":t.status=="pending"?"🟡 На рассмотрении":"✅ Закрыт"}
-            </div>
-        `;
+      <div class="ticket">
+        <div class="ticket-header">
+          <div class="ticket-info">
+            <h3>${ticket.name}</h3>
+            <div class="ticket-meta">${new Date(ticket.timestamp).toLocaleString("ru-RU")}</div>
+          </div>
 
-    if (isAdmin) {
-        html += `
-            <br>
-            <div class="admin-btn" onclick="setStatus(${t.id},'pending')">На рассмотрении</div>
-            <div class="admin-btn" onclick="setStatus(${t.id},'closed')">Закрыт</div>
-        `;
+          <div class="ticket-status">
+            <span class="status-badge ${statusClass}">${statusText}</span>
+          </div>
+        </div>
+
+        <div class="ticket-question">${ticket.question}</div>
+    `;
+
+    if (ticket.response) {
+      html += `
+        <div class="ticket-response">
+          <div class="ticket-response-label">Ответ:</div>
+          <div class="ticket-response-text">${ticket.response}</div>
+        </div>
+      `;
     }
 
-    html += `</div>`;
+    if (isAdmin) {
+      html += `
+        <button class="btn btn-sm" onclick="setStatus('${ticket.id}', 'progress')">В работу</button>
+        <button class="btn btn-sm" onclick="setStatus('${ticket.id}', 'resolved')">Решить</button>
+        <button class="btn btn-sm btn-secondary" onclick="reply('${ticket.id}')">Ответить</button>
+      `;
+    }
 
-    document.getElementById("view-my").innerHTML = html;
-    openTab("my", document.querySelectorAll(".tab")[1]);
+    html += "</div>";
+    ticketsList.innerHTML += html;
+  });
 }
 
-function setStatus(id, status) {
-    fetch(API + "/update_status", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({id:id, status:status})
-    });
+async function reply(id) {
+  const response = prompt("Введите ответ:");
+  if (!response) return;
 
-    tg.showPopup({title:"✅ Обновлено", message:"Статус изменён"});
+  const req = await fetch(`${API}/reply`, {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({id, response})
+  });
+
+  showToast("Ответ сохранён");
 }
 
-/* AUTO-REFRESH */
-setInterval(loadMyTickets, 1500);
-setInterval(loadAdminTickets, 1500);
+async function setStatus(id, status) {
+  await fetch(`${API}/update_status`, {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({id, status})
+  });
 
-loadMyTickets();
-loadAdminTickets();
+  showToast("Статус обновлён");
+}
 
+document.getElementById("ticket-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const question = document.getElementById("question").value.trim();
+
+  const ticket = {
+    id: Date.now().toString(),
+    name,
+    question,
+    response: "",
+    status: "new",
+    timestamp: new Date().toISOString(),
+    user_id: user.id
+  };
+
+  await fetch(`${API}/new_ticket`, {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(ticket)
+  });
+
+  showToast("Тикет создан");
+
+  loadTickets();
+});
+
+setInterval(loadTickets, 2000);
+loadTickets();
 </script>
+
 </body>
 </html>

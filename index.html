@@ -6,127 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
-        :root {
-            --bg: #0f0f10;
-            --card: #161718;
-            --accent: #5c7cff;
-            --text: #fff;
-            --text2: #a7a7a7;
-        }
-
         body {
-            background: var(--bg);
-            font-family: "Inter", Arial, sans-serif;
+            background: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            font-family: "Inter", sans-serif;
             margin: 0;
-            padding: 0;
-            color: var(--text);
-        }
-
-        .container {
             padding: 20px;
-            max-width: 600px;
-            margin: auto;
         }
 
-        h1 {
-            font-size: 28px;
+        .title {
+            font-size: 26px;
             font-weight: 700;
             margin-bottom: 20px;
-            text-align: left;
         }
 
-        .card {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.35);
-        }
-
-        .label {
-            font-size: 16px;
-            color: var(--text2);
-            margin-bottom: 6px;
-        }
-
-        input, textarea {
+        textarea {
             width: 100%;
-            background: #1f1f21;
-            border: 1px solid #2a2a2c;
-            color: var(--text);
             padding: 14px;
-            font-size: 16px;
-            border-radius: 14px;
-            outline: none;
+            border-radius: 12px;
+            background: var(--tg-theme-secondary-bg-color);
+            border: 1px solid var(--tg-theme-hint-color);
             resize: none;
-            margin-bottom: 15px;
-            transition: 0.15s ease;
-        }
-
-        input:focus, textarea:focus {
-            border-color: var(--accent);
-            background: #232325;
+            margin-bottom: 20px;
+            color: var(--tg-theme-text-color);
+            font-size: 16px;
         }
 
         button {
             width: 100%;
-            background: var(--accent);
+            padding: 14px;
             border: none;
-            padding: 15px;
+            border-radius: 12px;
+            background: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
             font-size: 17px;
             font-weight: 600;
-            border-radius: 14px;
-            color: #fff;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        button:active {
-            opacity: 0.8;
-            transform: scale(0.98);
-        }
-
-        .answer-box {
-            background: var(--card);
-            border-radius: 14px;
-            padding: 15px;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .answer-title {
-            color: var(--text2);
-            font-size: 14px;
-            margin-bottom: 6px;
-        }
-
-        .answer-text {
-            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="title">Поддержка</div>
 
-    <h1>Техподдержка</h1>
+<textarea id="text" rows="4" placeholder="Введите ваш вопрос..."></textarea>
 
-    <div class="card">
-        <div class="label">Ваше имя</div>
-        <input id="name" placeholder="Например: Алексей">
-
-        <div class="label">Ваш вопрос</div>
-        <textarea id="text" rows="4" placeholder="Опишите вашу проблему"></textarea>
-
-        <button onclick="sendMsg()">Отправить</button>
-    </div>
-
-    <div class="answer-box" id="answerBox">
-        <div class="answer-title">Ответ поддержки</div>
-        <div class="answer-text" id="answerText"></div>
-    </div>
-
-</div>
+<button onclick="sendMsg()">Отправить</button>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
@@ -134,33 +58,24 @@
     tg.expand();
 
     function sendMsg() {
-        let name = document.getElementById("name").value;
         let text = document.getElementById("text").value;
 
         if (!text.trim()) {
-            tg.showAlert("Введите сообщение!");
+            tg.showAlert("Введите сообщение");
             return;
         }
 
+        let user = tg.initDataUnsafe.user;
+
         tg.sendData(JSON.stringify({
-            name: name || "Не указано",
+            user_id: user.id,
+            username: user.username || "",
+            first_name: user.first_name,
             text: text
         }));
 
         tg.close();
     }
-
-    // Автоматическая загрузка ответов
-    setInterval(() => {
-        fetch("https://YOUR_SERVER/get_answers?user_id=" + tg.initDataUnsafe.user.id)
-            .then(r => r.json())
-            .then(data => {
-                if (data.answer) {
-                    document.getElementById("answerBox").style.display = "block";
-                    document.getElementById("answerText").innerText = data.answer;
-                }
-            });
-    }, 2000);
 </script>
 
 </body>

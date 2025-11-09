@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поддержка</title>
+    <style>
+        body { font-family: Arial; background: #111; color: #fff; display:flex; justify-content:center; align-items:center; height:100vh; }
+        .box { width:350px; padding:20px; background:#1b1b1b; border-radius:10px; }
+        input, textarea { width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:none; }
+        button { width:100%; padding:10px; border:none; border-radius:5px; background:#4c7fff; color:white; cursor:pointer; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>Написать в поддержку</h2>
+    <input id="username" placeholder="Ваше имя">
+    <textarea id="message" placeholder="Сообщение"></textarea>
+    <button onclick="send()">Отправить</button>
+    <p id="status"></p>
+</div>
+
+<script>
+function send() {
+    let name = document.getElementById("username").value;
+    let text = document.getElementById("message").value;
+
+    fetch("https://YOUR_SERVER/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, text })
+    })
+    .then(r => r.text())
+    .then(t => document.getElementById("status").innerText = t);
+}
+</script>
+
+</body>
+</html>
